@@ -1,0 +1,60 @@
+{% block content %}
+
+
+
+{% if player_adventures %}
+	{% for adventure in player_adventures %}
+	<ul>
+		<li><a href ="/adventure%{{ adventure.pk }}">{{ adventure.name }} for {{ adventure.party_size}} </a></li>
+		{% if adventure.characters.all %}
+		{% for player in adventure.characters.all %}
+		<ul>
+			<p> {{ player.name }}, {{ player.cls }}, {{ player.race }} </p>
+		</ul>
+		{% endfor %}
+                {% else %}
+                <p> No characters enrolled yet </p>
+                {% endif %}
+                <p> DM - {{ adventure.npc.player.name }} </p>
+                <p> Next Meeting - {{ adventure.date_next }} </p>
+	</ul>
+	{% endfor %}
+{% else %}
+<ul>
+	<p> There are no adventures you participate in </p>
+</ul>
+{% endif %}
+
+
+
+
+
+
+{% if open_adventures %}
+        {% for adventure in open_adventures %}
+        <ul>
+                <li><a href ="/adventure%{{ adventure.pk }}">{{ adventure.name }} for {{ adventure.party_size}} </a></li>
+		{% if adventure.characters.all %}
+                {% for player in adventure.characters.all %}
+                <ul>
+			<p> {{ player.name }}, {{ player.cls }},{{ player.race }} </p>
+                </ul>   
+                {% endfor %}
+                {% else %}
+                <p> No characters enrolled yet </p>
+                {% endif %}
+                <p> DM - {{ adventure.npc.player.name }} </p>
+                <p> Next Meeting - {{ adventure.date_next }} </p>
+
+                <li><a href="/quest_enroll%{{ adventure.pk }}">Enroll</a></i>
+        </ul>   
+        {% endfor %}
+{% else %}
+<ul>
+        <p> There are no open adventures. </p>
+</ul>   
+{% endif %}
+
+<li><a href="/room/">Room</a></li>
+
+{% endblock %}

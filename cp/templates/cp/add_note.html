@@ -1,0 +1,13 @@
+{% block content %}
+<p>{{ character.name }}, {{ character.cls }}, {{ character.race }}</p>
+
+
+<form action="" method="post">
+        {% csrf_token %}
+        <table>
+        {{ form }}
+        </table>
+        <input type="submit" value="Submit" />
+</form>
+<li><a href="/journal/">Back</a></li>
+{% endblock %}

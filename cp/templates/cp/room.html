@@ -1,0 +1,25 @@
+{% block content %}
+<p>{{ player }}</p>
+<p>{{ character.name }}, {{ character.cls }}, {{ character.race }}</p>
+
+<li><a href="/sheets/">Sheets</a></li>
+<li><a href="/journal/">Journal</a></li>
+
+
+
+{% if mementos %}
+    <ul>
+    {% for memento in mementos %}
+    <p> memento.character</p>
+    <p> memento.description</p>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No mementos.</p>
+    {% endif %}
+{% endblock %}
+
+
+
+
+<p><li><a href="/quest_board/">Quest Board</a></li></p>
