@@ -1,0 +1,43 @@
+{% load static %}
+<head>
+        <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+</head>
+
+
+
+
+{% include 'cp/nav.html' %}
+
+
+<div class="nav2">
+	{% if selected == "room" %}
+	<p> Room </p>
+	{% if selected2 == "sheets" %}
+	<a href="/journal/">Journal</a>
+	<a class="active" href="/sheets/">Sheets</a>
+	{% elif selected2 == "journal" %}
+        <a class="active" href="/journal/">Journal</a>
+        <a href="/sheets/">Sheets</a>
+	{% else %}
+	<a href="/journal/">Journal</a>
+	<a href="/sheets/">Sheets</a>
+	{% endif %}
+	{% elif selected == "quest_borad" %}
+	<p> Adventure Board </p>
+	<div class="player_adventures">
+	{% if player_adventures %}
+	{% for adventure in player_adventures %}
+	<a href ="/adventure%{{ adventure.pk }}">{{ adventure.name }} for {{ adventure.party_size}} </a>
+	{% endfor %}
+	{% endif %}
+	</div>
+	<div class = "open_adventures">
+	{% if open_adventures %}
+        {% for adventure in open_adventures %}
+        <a href ="/adventure%{{ adventure.pk }}">{{ adventure.name }} for {{ adventure.party_size}} </a>
+        {% endfor %}
+        {% endif %}
+	</div>
+	{% endif %}
+</div>
+~                   

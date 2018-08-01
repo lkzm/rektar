@@ -1,0 +1,25 @@
+{% blockcontent %}
+
+
+<p> {{ adventure.name }} </p>
+<p> {{ adventure.creator }} </p>
+<p> {{ adventure.date_started }} </p>
+
+
+<p> Characters in the adventure: </p>
+{% if adventure.characters.all %}
+{% for player in adventure.characters.all %}
+<ul>
+	<p> {{ player.name }}, {{ player.cls }},{{ player.race }} </p></ul>  
+{% endfor %}
+{% else %}
+<p> No characters enrolled yet </p>
+{% endif %}
+<p> DM - {{ adventure.npc.player.name }} </p>
+<p> Next Meeting - {{ adventure.date_next }} </p>
+<li><a href="/quest_enroll%{{ adventure.pk }}">Enroll</a></li>
+
+<li><a href="/quest_board/">Quest Board</a></li>
+
+
+{% endblock %}

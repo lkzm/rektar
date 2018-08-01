@@ -1,0 +1,20 @@
+{% load static %}
+
+<head>
+	<link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+
+
+<h1> Rektar's Castle </h1>
+
+{% include 'cp/nav.html' %}
+
+<div class="main">
+	{% block content %}
+	{% endblock %}
+</div>
+
+
+
+
+

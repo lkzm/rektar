@@ -1,3 +1,5 @@
+{% extends 'cp/base.html' %}
+
 {% block content %}
 
 
@@ -46,7 +48,7 @@
                 <p> DM - {{ adventure.npc.player.name }} </p>
                 <p> Next Meeting - {{ adventure.date_next }} </p>
 
-                <li><a href="/quest_enroll%{{ adventure.pk }}">Enroll</a></i>
+                <li><a href="/quest_enroll%{{ adventure.pk }}">Enroll</a></li>
         </ul>   
         {% endfor %}
 {% else %}

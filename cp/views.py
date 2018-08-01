@@ -4,6 +4,10 @@ from django.http import HttpResponseRedirect
 import pdb
 import datetime
 from cp.quest import quest_board
+
+
+
+#room view /room 
 def room (request):
 
     try:
@@ -17,24 +21,34 @@ def room (request):
     c=models.Character.objects.get(player=player_id)
     m=models.Memento.objects.filter(character=c.pk)
     j=models.Journal.objects.get(player=p)
+    
     context = {
             'player' : p,
             'character': c,
             'mementos': m,
-            'journal': j
+            'journal': j,
+            'selected': "room",
             }
     return render(request, 'cp/room.html', context)
 
+
+
+#request player room as NPC
 def room_request (request, player_id):
     request.session['pk_ph']=player_id
     return room(request)
 
+
+#i am not using that yet
 def castle (request):
     if (request.session['npc']==False):
         return room(request)
     else:
         return render (request, 'cp/npc/castle.html')
 
+
+
+#login view
 def login(request, context= {} ):
     request.session['npc']=False
     form = forms.LogInForm(request.POST)
@@ -44,7 +58,7 @@ def login(request, context= {} ):
         pwd=form.cleaned_data['password']
         p=models.Player.objects.get(username=usr, password=pwd)
         request.session['pk_user'] = p.pk
-        if (p.npc==True):
+        if (p.npc==True):                #check if the user is a npc
             request.session['npc']=True
             return quest_board(request)
 
@@ -57,7 +71,10 @@ def login(request, context= {} ):
         return render(request, 'cp/login.html', context)
 
     return render(request, 'cp/login.html', context)
-            
+
+
+
+#registration
 def create_char(request, context = {}):
     form = forms.CreateCharForm(request.POST)
     context['form']=form
@@ -91,6 +108,9 @@ def create_char(request, context = {}):
     return render(request, 'cp/create_char.html', context)
 
 
+
+
+#sheets view /sheets
 def sheets (request):
     if (request.session['npc']==True):
         p=models.Player.objects.get(pk=request.session['pk_ph'])
@@ -101,10 +121,14 @@ def sheets (request):
     context = {
             'sheets' : s,
             'character' : c,
+            'selected2' : "sheets",
+            'selected' : "room",
             }
     return render(request, 'cp/sheets.html', context)
 
 
+
+#upload sheet /upload_sheet
 def upload_sheet (request):
     if (request.session['npc']==True):
         p=models.Player.objects.get(pk=request.session['pk_ph'])
@@ -115,6 +139,8 @@ def upload_sheet (request):
     context = {
             'character' : c,
             'form' : form,
+            'selected': "room",
+            'selected2': "sheets",
             }
     if form.is_valid():
         u=form.cleaned_data['url']
@@ -132,6 +158,10 @@ def upload_sheet (request):
         return render(request, 'cp/upload_sheet.html', context)
 
     return render(request, 'cp/upload_sheet.html', context)
+
+
+
+#journal /journal
 def journal (request):
     if (request.session['npc']==True):
         player_id=request.session['pk_ph']
@@ -147,6 +177,8 @@ def journal (request):
             'character' : c,
             'adventures' : j.adventures,
             'journal' : j,
+            'selected' : "room",
+            'selected2' : "journal",
             }
     return render(request, 'cp/journal.html', context)
 def add_note (request):
@@ -159,7 +191,9 @@ def add_note (request):
     j=models.Journal.objects.get(player=p)
     context = {
             'character' : c,
-            'form' : form
+            'form' : form,
+            'selected' : "room",
+            'selected2' : "journal",
             }
     if form.is_valid():
         text=form.cleaned_data['text']

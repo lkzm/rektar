@@ -1,0 +1,64 @@
+.nav {
+	width: 200px; /* Set a width if you like */
+	float: left;
+}
+
+.nav a {
+	background-color: #eee; /* Grey background color */
+	color: black; /* Black text color */
+	display: block; /* Make the links appear below each other */
+	padding: 12px; /* Add some padding */
+	text-decoration: none; /* Remove underline from links */
+}
+
+.nav a:hover {
+	background-color: #ccc; /* Dark grey background on mouse-over */
+}
+
+.nav a.active {
+	background-color: #4CAF50; /* Add a green color to the "active/current" link */
+	color: white;
+}
+
+
+.nav2 {
+	width: 200px;
+	float: left;
+	
+}
+.nav2 a {
+        background-color: #eee; /* Grey background color */
+        color: black; /* Black text color */
+        display: block; /* Make the links appear below each other */
+        padding: 12px; /* Add some padding */
+        text-decoration: none; /* Remove underline from links */
+}
+
+.nav2 a:hover {
+        background-color: #ccc; /* Dark grey background on mouse-over */
+}
+
+.nav2 a.active {
+        background-color: #4CAF50; /* Add a green color to the "active/current" link */    
+        color: white;
+}
+.nav3 { 
+        width: 200px;
+	float: left;
+}
+.nav3 a {
+        background-color: #eee; /* Grey background color */
+        color: black; /* Black text color */
+        display: block; /* Make the links appear below each other */
+        padding: 12px; /* Add some padding */
+        text-decoration: none; /* Remove underline from links */
+}
+
+.nav3 a:hover {
+        background-color: #ccc; /* Dark grey background on mouse-over */
+}
+
+.nav3 a.active {
+        background-color: #4CAF50; /* Add a green color to the "active/current" link */    
+        color: white;
+}
