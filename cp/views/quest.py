@@ -11,20 +11,13 @@ def quest_board (request, context = {}):
         context['player_adventures']=models.Adventure.objects.filter(characters__pk=request.session['pk_user'])
         context['open_adventures']=models.Adventure.objects.filter(status=1)
         context['selected']="quest_board"
-        nav1=models.Menu()
-        opt=models.MenuOption.objects.create(title="Room", url="/room/", active=False)
-        nav1.options.add(opt)
-        opt=models.MenuOption.objects.create(title="Adventure Board", url="/quest_board/", active=True)
-        opt.save()
-        nav1.options.add(opt)
-        request.session['nav1']=nav1
-        context['nav1']=nav1
         return render(request, 'cp/player/quest_board.html', context)
     else:
         context['open_adventures']=models.Adventure.objects.filter(status=1)
         context['started_adventures']=models.Adventure.objects.filter(status=0)
         context['finished_adventures']=models.Adventure.objects.filter(status=-1)
         context['selected']="quest_board"
+<<<<<<< HEAD
         nav1= models.Menu()
         nav1.save()
         opt= models.MenuOption.objects.create(title="Adventure Board", url="/quest_board/", active=True)
@@ -32,6 +25,8 @@ def quest_board (request, context = {}):
         nav1.options.add(opt)
         request.session['nav1']=nav1
         context['nav1']=nav1
+=======
+>>>>>>> c48db9f81ec1875d4797d6973d2b87ea758a16ff
         return render(request, 'cp/npc/quest_board.html', context)
 
 
@@ -58,7 +53,7 @@ def quest_start (request, adventure_id):
         a=models.Adventure.objects.get(pk=adventure_id)
         a.status=0
         a.save()
-        return quest_board(reques)
+        return quest_board(request)
     else:
         return quest_board(request)
 
@@ -80,19 +75,11 @@ def quest_create (request):
     else:    
         form=forms.QuestForm(request.POST)
         n=models.Player.objects.get(pk=request.session['pk_user'])
-        nav2 = {}
-        for adventure in models.Adventure.objects.all():
-            nav2.append( NavMenu (adventure.name+" - "+adventure.status, "/quest%"+adventure.pk, False))
-
-        nav2.append(NavMenu ("Create new adventure", "/quest_create/", True))
-        request.session['nav2']=nav2
         
 
         context = {
             'player' : n,
             'form' : form,
-            'nav1' : request.session['nav1'],
-            'nav2' : nav2,
             }
         if form.is_valid():
             s=form.cleaned_data['party_size']
