@@ -25,9 +25,9 @@ def quest_board (request, context = {}):
         context['started_adventures']=models.Adventure.objects.filter(status=0)
         context['finished_adventures']=models.Adventure.objects.filter(status=-1)
         context['selected']="quest_board"
-        nav1=models.Menu()
+        nav1= models.Menu()
         nav1.save()
-        opt=models.MenuOption.objects.create(title="Adventure Board", url="/quest_board/", active=True)
+        opt= models.MenuOption.objects.create(title="Adventure Board", url="/quest_board/", active=True)
         opt.save()
         nav1.options.add(opt)
         request.session['nav1']=nav1
