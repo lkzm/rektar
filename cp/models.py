@@ -17,7 +17,6 @@ class Description(models.Model):
         return self.text
 
 
-
 class Character(models.Model):
     player=models.ForeignKey('Player', on_delete=models.CASCADE, default=1) 
     alive=models.BooleanField(default=True)
