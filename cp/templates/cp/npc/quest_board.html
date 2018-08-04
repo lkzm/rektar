@@ -45,7 +45,7 @@
 		{% if adventure.characters.all %}
                 {% for player in adventure.characters.all %}
                 <ul>
-			<p> <li> <a href="/room_request%{{ player.pk}}"> {{ player.name }}, {{ player.cls }}, {{ player.race }} </a></li></p>
+			<p> <li> <a href="/room%{{ player.pk}}"> {{ player.name }}, {{ player.cls }}, {{ player.race }} </a></li></p>
                 </ul>   
                 {% endfor %}
 		{% else %}
