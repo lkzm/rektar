@@ -80,7 +80,7 @@ class Journal(models.Model):
 
 
 
-
+    
 
 
 

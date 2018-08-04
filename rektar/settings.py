@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['35.204.16.188']
 
 INSTALLED_APPS = [
     'cp',
+    'nav',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

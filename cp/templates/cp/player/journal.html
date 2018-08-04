@@ -1,0 +1,81 @@
+{% extends 'cp/base.html' %}
+
+{% block content %}
+
+
+<div class="nav">
+        <a href="/room/">Sheets</a>
+        <a class="active" href="/journal/">Journal</a>
+
+</div>
+
+
+<div class="main">
+
+
+
+
+
+<p> This journal is owned by {{ player.name }} </p>
+
+
+
+<p> Player adventures: </P>
+
+{% if adventures.all %}
+	<ul>
+		{% for adventure in adventures.all %}
+			<a href="quest_details%{{ adventure.id }}">{{ adventure.name }}</a></li>
+			{% if adventure.characers %}
+			<p> Characters involved: </p>
+				<ul>
+				{% for character in adventure.characters %}
+					<p> {{ character.name }}, {{ character.cls}}, {{ character.race }} </p>
+				{% endfor %}
+				</ul>
+			{% else %}
+				<p> There are no characters in this adventure yet. </p>
+			{% endif %}
+			
+			<p> Adventure descritpion: </p>
+			<ul>
+				{{ adventure.description.text }}
+			</ul>
+
+
+			{% if adventure.characers %}
+                                <ul>
+                                {% for note in adventure.notes.all %}
+                                        <p> {{ note.character.name }} wrote on {{ note.date_created}}: </p>
+					<p> {{ note.description.text }}</p>
+                                {% endfor %}
+                                </ul>
+                        {% else %}
+                                <p> There are no notes for this adventure yet. </
+p>
+                        {% endif %}
+		{% endfor %}
+	</ul>
+{% else %}
+	<p> There are no adventures yet. </p>
+{% endif %}
+
+
+<p> Player notes: </p>
+
+{% if notes.all %}
+        <ul>
+                {% for note in notes.all %}
+			<p> {{ note.character.name }} on {{ note.date_created }} wrote: </p>
+			<p> {{ note.description.text }} </p>
+                {% endfor %}
+        </ul>
+{% else %}
+        <p> There are no notes yet </p>
+{% endif %}
+
+
+<li><a href="/room/">Back</a></li>
+<li><a href="/add_note/">Add note</a></li>
+</div>
+{% endblock %}

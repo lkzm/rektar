@@ -17,25 +17,32 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.conf.urls import url
-from cp import views, quest
+from cp.views import quest, account, room
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', views.login, name='login'),
-    path('room/', views.room, name='room'),
-    path('create_char/', views.create_char, name='create_char'),
-    path('sheets/', views.sheets, name='sheets'),
-    path('upload_sheet/', views.upload_sheet, name='upload_sheet'),
-    path('journal/', views.journal, name='journal'),
-    path('add_note/', views.add_note, name="add_note"),
+
+    #views/accounts.py
+    path('login/', account.login, name='login'),
+    path('create_char/', account.create_char, name='create_char'),
+    #path('create_npc/', views.room_create, name='create_npc'),
+        
+    #views/room.py
+    path('room/', room.room, name='Room'),
+    path('sheets/', room.sheets, name='Sheets'),
+    path('upload_sheet/', room.upload_sheet, name='Upload Sheet'),
+    path('journal/', room.journal, name='Journal'),
+    path('journal/add_note/', room.add_note, name="Journal Note"),
+    path('room%<int:player_id>/', room.room_request, name='Room'),
+    #path('castle/', views.castle, name='castle'),
+        
+    #views/quest.py
     path('quest_board/', quest.quest_board, name='quest_board'),
     path('quest_enroll%<int:adventure_id>/', quest.quest_enroll, name='quest_enroll'),
     path('quest_start%<int:adventure_id>/', quest.quest_start, name='quest_start'),
     path('quest_finish%<int:adventure_id>/', quest.quest_finish, name='quest_start'),
+    path('quest%<int:adventure_id>', quest.quest_details, name='quest_details'),
     path('quest_create/', quest.quest_create, name='quest_create'),
-    path('castle/', views.castle, name='castle'),
-    path('room_request%<int:player_id>/', views.room_request, name='room_request'),
-    path('quest_details%<int:adventure_id>', quest.quest_details, name='quest_details'),
-    #path('create_npc/', views.room_create, name='create_npc'),
+    #path('quest/add_note/', quest.add_note, name="journal_note"),
 ]
 

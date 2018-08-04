@@ -1,4 +1,4 @@
-{% extend cp/base.html %}
+{% extends 'cp/base.html' %}
 
 
 {% block content %}
@@ -9,7 +9,7 @@
 {% if started_adventures %}
         {% for adventure in started_adventures %}
         <ul>
-                <li><a href ="/adventure%{{ adventure.pk }}">{{ adventure.name }} for {{ adventure.party_size}} </a></li>
+                <li><a href ="/quest%{{ adventure.pk }}">{{ adventure.name }} for {{ adventure.party_size}} </a></li>
 		{% if adventure.characters.all %}
                 {% for player in adventure.characters.all %}
                 <ul>

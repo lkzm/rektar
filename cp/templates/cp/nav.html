@@ -7,15 +7,10 @@
 
 <div class="nav">
 	<p> Castle <p>
-	{% if selected == "room" %}
-	<a class="active" href="/room/">Room</a>
-	<a href="/quest_board/">Adventure board</a>
-	{% elif selected == "quest_board" %}
-	<a href="/room/">Room</a>
-	<a class="active" href="/quest_board/">Adventure board</a>
-	{% else %}
-	<a href="/room/">Room</a>
-        <a href="/quest_board/">Adventure board</a>
-	{% endif %} 
+
+	{% for option in nav1.options.all %}
+	<a href="{{ option.url }}">{{ option.title }}</a>
+	{% endfor %}
+
 
 </div>
