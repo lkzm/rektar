@@ -17,16 +17,6 @@ def quest_board (request, context = {}):
         context['started_adventures']=models.Adventure.objects.filter(status=0)
         context['finished_adventures']=models.Adventure.objects.filter(status=-1)
         context['selected']="quest_board"
-<<<<<<< HEAD
-        nav1= models.Menu()
-        nav1.save()
-        opt= models.MenuOption.objects.create(title="Adventure Board", url="/quest_board/", active=True)
-        opt.save()
-        nav1.options.add(opt)
-        request.session['nav1']=nav1
-        context['nav1']=nav1
-=======
->>>>>>> c48db9f81ec1875d4797d6973d2b87ea758a16ff
         return render(request, 'cp/npc/quest_board.html', context)
 
 
@@ -107,29 +97,9 @@ def quest_details (request, adventure_id):
     a=models.Adventure.objects.get(pk=adventure_id)
     context = { 'adventure' : a }
     if (request.session['npc']==True):
-        nav2 = {}
-        for adventure in models.Adventure.objects.all():
-            if (adventure.pk==a.pk):
-                nav2.append( NavMenu (adventure.name+" - "+adventure.status, "/quest%"+adventure.pk, True))
-            else:
-                nav2.append( NavMenu (adventure.name+" - "+adventure.status, "/quest%"+adventure.pk, False))
-
-        nav2.append( NavMenu ("Create new adventure", "/quest_create/", False))
-        request.session['nav2']=nav2
-        context['nav1']=request.session['nav1']
-        context['nav2']=request.session['nav2']
         return render(request, 'cp/npc/quest_details.html', context)
     else:
-        nav2 = {}
-        for adventure in models.Adventure.objects.filter(status>=0):
-            if (adventure.pk==a.pk):
-                nav2.append( NavMenu (adventure.name+" - "+adventure.status, "/quest%"+adventure.pk, True))
-            else:
-                nav2.append( NavMenu (adventure.name+" - "+adventure.status, "/quest%"+adventure.pk, False))
 
-        request.session['nav2']=nav2
-        context['nav1']=request.session['nav1']
-        context['nav2']=request.session['nav2']
         return render(request, 'cp/player/quest_details.html', context)
 
 
