@@ -10,3 +10,78 @@
 .main3 {
 	float: left
 }
+
+/* Diagonal stacked paper effect */
+.paper {
+  background-color: #fff;
+  /* Need position to allow stacking of pseudo-elements */
+  position: relative;
+  /* Padding for demo purposes */
+  padding: 30px;
+}
+
+.paper,
+.paper::before,
+.paper::after {
+  /* Add shadow to distinguish sheets from one another */
+  box-shadow: 2px 1px 1px rgba(0,0,0,0.15);
+}
+
+.paper::before,
+.paper::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #eee;
+}
+
+/* Second sheet of paper */
+.paper::before {
+  left: 7px;
+  top: 5px;
+  z-index: -1;
+}
+
+/* Third sheet of paper */
+.paper::after {
+  left: 12px;
+  top: 10px;
+  z-index: -2;
+}
+
+/* Demo-specific styles */
+body {
+  background-color: #333;
+  padding: 2em;
+}
+@import "compass/css3";
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.flex-item {
+  background: darkgrey;
+  padding: 15px;
+  width: auto;
+  height: auto;
+  margin-top: 15px;
+
+  line-height: auto;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
+}

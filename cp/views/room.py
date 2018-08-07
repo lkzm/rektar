@@ -29,7 +29,7 @@ def room (request):
             'selected': "room",
             }
     if (request.session['npc'] == True):
-        render(request, 'cp/npc/room.html', context)
+        return render(request, 'cp/npc/room.html', context)
     else:
         return render(request, 'cp/player/room.html', context)
 
@@ -57,7 +57,7 @@ def castle (request):
 
 
 #journal /journal
-def journal (request):
+def journal (request, context = { }):
     if (request.session['npc']==True):
         player_id=request.session['pk_ph']
 
@@ -75,14 +75,28 @@ def journal (request):
             'selected' : "room",
             'selected2' : "journal",
             }
-    if (request.session['npc']==True):
-        return render(request, 'cp/npc/journal.html', context)
-    else:
-        return render(request, 'cp/player/journal.html', context)
+    try:
+        if (context['entry']==True):
+            form = forms.DescriptionForm(request.POST)
+            context['form']=form
+            if form.is_valid():
+                if (request.session['npc'] == True):
+                    c = models.Character.objects.get(player=models.Player.objects.get(pk=request.session['char']))
+                text = form.cleaned_data['text']
+                j.notes.add(models.Note.objects.create(description=models.Description.objects.create(text = text), character=c))
+                j.save()
+                return journal(request)
+            else:
+                return journal(request, context)
+    except:
+        if (request.session['npc'] == True):
+            return render(request, 'cp/npc/journal.html', context)
+        else:
+            return render(request, 'cp/player/journal.html', context)
 
 
 #sheets view /sheets
-def sheets (request):
+def sheets(request):
     if (request.session['npc']==True):
         p=models.Player.objects.get(pk=request.session['pk_ph'])
     else:
@@ -101,9 +115,10 @@ def sheets (request):
 def upload_sheet (request):
     if (request.session['npc']==True):
         p=models.Player.objects.get(pk=request.session['pk_ph'])
+        c = models.Character.objects.get(player=models.Player.objects.get(pk=request.session['char']))
     else:    
         p=models.Player.objects.get(pk=request.session['pk_user'])
-    c=models.Character.objects.get(player=p)
+        c=models.Character.objects.get(player=p)
     form = forms.UploadSheet(request.POST)
     context = {
             'character' : c,
@@ -134,32 +149,41 @@ def upload_sheet (request):
 
 
 
-# /journal/add_note)
-def add_note (request):
-    if (request.session['npc']==True):
-        p=models.Player.objects.get(pk=request.session['pk_ph'])
-    else:    
-        p=models.Player.objects.get(pk=request.session['pk_user'])
-    c=models.Character.objects.get(player=p)
-    form = forms.NoteForm(request.POST)
-    j=models.Journal.objects.get(player=p)
-    context = {
-            'character' : c,
-            'form' : form,
-            'selected' : "room",
-            'selected2' : "journal",
-            }
-    if form.is_valid():
-        text=form.cleaned_data['text']
-        d=models.Description.objects.create(text=text)
-        n=models.Note.objects.create(character=c,
-                description=d,
-                date_created=datetime.datetime.now())
-        j.notes.add(n)
-        return journal(request)
-    else:
-        return render(request, 'cp/player/add_note.html', context)
-    return render(request, 'cp/player/add_note.html', context)
+# /add_note)
+# def add_note (request):
+#     if (request.session['npc']==True):
+#         p=models.Player.objects.get(pk=request.session['pk_ph'])
+#     else:
+#         p=models.Player.objects.get(pk=request.session['pk_user'])
+#     c=models.Character.objects.get(player=p)
+#     form = forms.NoteForm(request.POST)
+#     j=models.Journal.objects.get(player=p)
+#     context = {
+#             'character' : c,
+#             'form' : form,
+#             'selected' : "room",
+#             'selected2' : "journal",
+#             }
+#     if form.is_valid():
+#         text=form.cleaned_data['text']
+#         d=models.Description.objects.create(text=text)
+#         n=models.Note.objects.create(character=c,
+#                 description=d,
+#                 date_created=datetime.datetime.now())
+#         j.notes.add(n)
+#         return journal(request)
+#     else:
+#         return render(request, 'cp/player/add_note.html', context)
+#     return render(request, 'cp/player/add_note.html', context)
 #edit delete for notes 
 
+# def note_edit (request, note_id):
+def add_note (request):
+    context = {
+        'entry': True
+    }
+    if (request.session['selected2']=='journal'):
+        return journal(request, context)
+    else:
+        return quest_board(request)
 

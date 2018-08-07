@@ -1,0 +1,22 @@
+
+
+{{ chamber.title }}
+
+{% if chamber.descriptions.all %}
+
+{% for description in chamber.descriptions.all %}
+<ul>
+
+{{ edit_form }}
+
+{{ description.text }}
+
+<a href="/page%{{ chamber.id }}description%{{ description.id }}/">Edit</a>
+{% endfor %}
+{% endif %}
+
+
+
+</ul>
+
+

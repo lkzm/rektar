@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from cp import models, forms
+
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.http import HttpResponseRedirect
 import datetime
 
@@ -59,13 +61,17 @@ def quest_finish (request, adventure_id):
         return quest_board(request)
 
 
+
+
+
+
 def quest_create (request):
     if (request.session['npc']==False):
         return quest_board(request)
-    else:    
+    else:
         form=forms.QuestForm(request.POST)
         n=models.Player.objects.get(pk=request.session['pk_user'])
-        
+
 
         context = {
             'player' : n,
@@ -87,9 +93,9 @@ def quest_create (request):
             return quest_board(request)
         else:
             return render(request, 'cp/npc/quest_create.html', context)
+            return render(request, 'cp/npc/quest_create.html', context)
 
     return render(request, 'cp/npc/quest_create.html', context)
-        
 
 
 #/quest%id
@@ -106,3 +112,8 @@ def quest_details (request, adventure_id):
 
 #add edit quest and remove quest
 
+
+
+
+#edit quest quest_edit%id
+#class QuestUpdate (UpdateView):

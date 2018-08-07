@@ -1,0 +1,43 @@
+{% load static %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>RC</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+</head>
+<body>
+
+<h1> Rektar's Castle</h1>
+
+<ul class="flex-container">
+
+
+    <ul class="flex-container">
+    <li class="flex-item">blacksmith
+        </li>
+    <li class="flex-item">library
+        </li>
+    <li class="flex-item">treasury
+        </li>
+    </ul>
+    
+    <li class="flex-item">
+
+
+
+<form action="" method="post">
+        {% csrf_token %}
+        <table>
+        {{ form }}
+        </table>
+        <input type="submit" value="Submit" />
+</form>
+
+    </li>
+
+</ul>
+</body>
+</html>
+{% endblock %}

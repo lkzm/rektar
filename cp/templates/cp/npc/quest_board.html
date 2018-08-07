@@ -14,7 +14,7 @@
 		{% if adventure.characters.all %}
                 {% for player in adventure.characters.all %}
                 <ul>
-			<p> <li> <a href="/room_request % {{ player.pk}}"> {{ player.name }}, {{ player.cls }}, {{ player.race }} </a></li></p>
+			<p> <li> <a href="/room%{{ player.pk }}"> {{ player.name }}, {{ player.cls }}, {{ player.race }} </a></li></p>
                 </ul>
                 {% endfor %}
 		{% else %}
@@ -41,7 +41,7 @@
 {% if open_adventures %}
         {% for adventure in open_adventures %}
         <ul>
-                <li><a href ="/adventure%{{ adventure.pk }}">{{ adventure.name }} for {{ adventure.party_size}} </a></li>
+                <li><a href ="/quest%{{ adventure.pk }}">{{ adventure.name }} for {{ adventure.party_size}} </a></li>
 		{% if adventure.characters.all %}
                 {% for player in adventure.characters.all %}
                 <ul>

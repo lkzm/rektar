@@ -22,3 +22,14 @@ class QuestForm(forms.Form):
     party_size=forms.IntegerField()
     date_next=forms.DateField()
 
+
+
+
+class DescriptionForm(forms.Form):
+    text=forms.CharField(widget=forms.Textarea)
+
+class ChamberForm(forms.Form):
+    text=forms.CharField(max_length=200)
+
+
+

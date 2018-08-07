@@ -9,12 +9,12 @@ class Player (models.Model):
     password=models.CharField(max_length=global_vars.max_password)
     npc=models.BooleanField(default=False)
     def __str__(self):
-        return self.username
+        return str(self.username)
 
 class Description(models.Model):
     text=models.CharField(max_length = global_vars.max_textfield)
     def __str__(self):
-        return self.text
+        return str(self.text)
 
 
 class Character(models.Model):
@@ -26,7 +26,7 @@ class Character(models.Model):
     description=models.ForeignKey('Description', on_delete=models.SET_DEFAULT, default=0)
 
     def __str__(self):
-        return self.name + ', '+ self.cls +', ', self.race
+        return str(str(self.name) + ', '+ str(self.cls) +', '+ str(self.race))
 
 
 class Sheet(models.Model):
@@ -44,11 +44,11 @@ class Memento(models.Model):
         return str(self.character)
 
 class Note(models.Model):
-    date_created=models.DateField(default=datetime.datetime.today())
+    date_created=models.DateField()
     description=models.ForeignKey('Description', on_delete=models.CASCADE)
     character=models.ForeignKey('Character', on_delete=models.CASCADE)
     def __str__ (self):
-        return str(self.character) + ' on ' + str(self.date_created)
+        return str(str(self.character) + ' on ' + str(self.date_created))
 
 class Adventure(models.Model):
     date_finished=models.DateField(default=datetime.datetime.today)
@@ -63,7 +63,7 @@ class Adventure(models.Model):
     notes=models.ManyToManyField('Note')
     creator=models.ForeignKey('Player', on_delete=models.SET_DEFAULT, default = 0 )
     def __str__(self):
-        return str(self.name) + ' for ' + self.party_size
+        return str(str(self.name) + ' for ' + self.party_size)
 
 
 
@@ -74,10 +74,17 @@ class Journal(models.Model):
     adventures=models.ManyToManyField('Adventure')
     notes=models.ManyToManyField('Note')
 
+    def __str__(self):
+        return str(self.player)
 
 
 
-
+class Chamber (models.Model):
+    
+    title=models.CharField(max_length=200)
+    descriptions=models.ManyToManyField(Description)
+    def __str__(self):
+        return str(self.title)
 
     
 

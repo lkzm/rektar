@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'rektar.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'rektar',
-        'USER': 'admin',
-        'PASSWORD': 'password',
+        'NAME': 'rektar-castle',
+        'USER': 'rektar',
+        'PASSWORD': 'whatever',
         'HOST': 'localhost',
         'PORT': '',
     }

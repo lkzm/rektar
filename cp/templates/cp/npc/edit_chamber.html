@@ -1,0 +1,25 @@
+
+
+{{ chamber.title }}
+
+{% if chamber.descriptions.all %}
+
+{% for description in chamber.descriptions.all %}
+<ul>
+{% if edit_form %}
+{% if description.id == edit_id %}
+{{ edit_form }}
+{% else %}
+{{ description.text }}
+
+<a href="/page_edit_description%{{ chamber.id }}%{{ description.id }}/">Edit</a>
+
+{% endif %}
+{% else %}
+{{ description.text }}
+<a href="/page_edit_description%{{ chamber.id }}%{{ description.id }}/">Edit</a>
+{% endif %}
+</ul>
+{% endfor %}
+
+{% endif %}

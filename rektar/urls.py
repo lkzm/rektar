@@ -23,6 +23,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     #views/accounts.py
+    path('page%<chamber_id>/', account.chamber, name='chamber'),
+    path('page_edit%<chamber_id>/', account.edit_chamber, name='edit_chamber'),
+    path('page_edit_description%<chamber_id>%<description_id>/', account.chamber_description_edit, name='chamber_description_edit'),
+    path('', account.castle, name='index'),
     path('login/', account.login, name='login'),
     path('create_char/', account.create_char, name='create_char'),
     #path('create_npc/', views.room_create, name='create_npc'),
@@ -32,7 +36,7 @@ urlpatterns = [
     path('sheets/', room.sheets, name='Sheets'),
     path('upload_sheet/', room.upload_sheet, name='Upload Sheet'),
     path('journal/', room.journal, name='Journal'),
-    path('journal/add_note/', room.add_note, name="Journal Note"),
+    path('add_note/', room.add_note, name="Journal Note"),
     path('room%<int:player_id>/', room.room_request, name='Room'),
     #path('castle/', views.castle, name='castle'),
         
